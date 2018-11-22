@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njbdqn.mysee.dao.ICardDAO">
+    <select id="findCand" parameterType="Bankcards" resultType="Bankcards">
+      select u.username,b.cardid,b.cardno,b.regdate,
+        ifnull(tmp.balance,0) balance
+        from userinfos u inner join bankcards b on u.userid=b.userid
+        left join
+        (select t.cardid,
+        sum(if(trantype=1,tranmoney,-1*tranmoney)) balance from trans t
+            group by cardid  )tmp on
+            b.cardid = tmp.cardid
+        <where>
+            <if test="username != null">
+                u.username like concat('%',#{username},'%')
+            </if>
+            <if test="cardno != null">
+                and b.cardno = #{cardno}
+            </if>
+        </where>
+    </select>
+</mapper>

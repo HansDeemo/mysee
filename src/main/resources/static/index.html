@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>银行卡信息平台</title>
+    <link type="text/css" rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
+</head>
+<body>
+<div class="container">
+    <div class="row text-center">
+        <h1>银行卡信息平台</h1>
+    </div>
+    <div class="row">
+        <div class="col-xs-offset-2 col-xs-10">
+            <form action="" id="myfrm" class="">
+                <input type="hidden" name="cp" value="1"/>
+                <div class="form-group"><label for="" class="col-xs-1 control-label">用户名</label>
+                    <div class="col-xs-3"><input type="text" name="username" class="form-control" v-model="username"></div>
+                </div>
+                <div class="form-group"><label for="" class="col-xs-1 control-label">卡号</label>
+                    <div class="col-xs-3"><input type="text" name="cardno" class="form-control" v-model="cardno"></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-2">
+                        <button type="button" class="btn btn-primary" @click="search()"><i class="glyphicon glyphicon-search"></i> 搜索</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-offset-2 col-xs-8">
+            <table class="table table-striped table-hover table-bordered">
+                <tr>
+                    <th class="text-center">用户编号</th>
+                    <th class="text-center">用户卡号</th>
+                    <th class="text-center">用户姓名</th>
+                    <th class="text-center">注册日期</th>
+                    <th class="text-center">卡上余额</th>
+                </tr>
+                <tr v-for="(us,index) in pageInfo.list">
+                    <td>{{us.cardid}}</td>
+                    <td>{{us.cardno}}</td>
+                    <td>{{us.username}}</td>
+                    <td>{{us.regdate}}</td>
+                    <td class="hasmoney" :class="{nomoney:ismoney[index]}">{{us.balance | priceFilter}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-offset-4 col-xs-4">
+            <ul class="pagination">
+                <li><a href="javascript:;" @click="jump(1)">首页</a></li>
+                <li><a href="javascript:;" @click="jump(pageInfo.prePage)">上页</a></li>
+                <li><a href="javascript:;" @click="jump(pageInfo.nextPage)">下页</a></li>
+                <li><a href="javascript:;" @click="jump(pageInfo.pages)">尾页</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <script type="text/javascript" src="lib/vue/vue.min.js"></script>
+    <script type="text/javascript" src="lib/vue/axios.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+
+</body>
+</html>

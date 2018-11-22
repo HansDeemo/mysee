@@ -1,0 +1,9 @@
+.row{
+    margin-bottom: 10px;
+}
+.hasmoney{
+    color:green;
+}
+.nomoney{
+    color:red;
+}
